@@ -1,0 +1,33 @@
+{%- comment -%}
+ %
+ % Returns a menu with (nested) children for a given list of pages.
+ %
+ % By default `site.html_pages` is used. Pages can be specified by providing a
+ % "pages" property.
+ %
+ % The returned menu is sorted by title. If an item does not have a title, the
+ % script uses the url for sorting and the (original) filename as the title.
+ %
+ % ## Usage examples
+ %
+ % Simple usage:
+ %
+ %     {% include nav_recurse/main.lqd %}
+ %
+ % Specifying specific pages:
+ %
+ %     {% assign pages = site.html_pages | where_exp:"page", "page.url contains 'docs/'" %}
+ %     {% include nav_recurse/main.lqd pages = pages %}
+ %
+{%- endcomment -%}
+
+{% assign pages = include.pages | default: site.html_pages %}
+
+{% assign filtered_pages = "" | split: "" %}
+{% for node in pages %}
+  {% unless site.nav.exclude contains node.url or node.nav_exclude %}
+    {% assign filtered_pages = filtered_pages | push: node %}
+  {% endunless %}
+{% endfor %}
+
+{% include nav_recurse/create_menu.lqd pages=filtered_pages %}

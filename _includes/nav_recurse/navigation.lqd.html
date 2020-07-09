@@ -1,0 +1,28 @@
+{% assign children = include.children %}
+{% assign level = include.level | default: 1 %}
+{% assign parents_urls = include.parents_urls %}
+{% assign top_level = include.pages %}
+
+<ul class="nav-list">
+  {% assign level = level | plus: 1 %}
+  {% for site_page in top_level %}
+
+    {% include nav_recurse/node_information.lqd %}
+
+    <li class="nav-list-item{% if is_active %} active{% endif %}">
+    {% if has_children %}
+      <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+    {% endif %}
+
+    <a {% if site_page.url %}href="{{ site_page.url | absolute_url }}"{% endif %} class="nav-list-link{% if is_active %} active{% endif %}">
+      {{ site_page_title }}
+      <b>{{is_active|inspect}}</b>
+    </a>
+
+    {% if has_children %}
+      {% assign child_pages = children | where_exp:"child", "child.url contains site_page_url" %}
+      {% include nav_recurse/create_menu.lqd pages=child_pages level=level %}
+    {% endif %}
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,86 @@
+{%- capture buffer -%}
+  {% assign level = include.level | default: 1 %}
+  {% assign pages = include.pages | sort_natural: "dir" %}
+
+  {% assign children = "" | split: "" %}
+  {% assign parents = "" | split: "" %}
+  {% assign parents_urls = "" | split: "" %}
+  {% assign top_level = "" | split: "" %}
+  {% assign top_level_urls = "" | split: "" %}
+
+  {% capture delimiter %}<--{{ "now" | date: "%N" }}|{{ "now" | date: "%s" }})-->{%endcapture%}
+
+  {% for current_page in pages %}
+    {% assign url_parts = current_page.url | remove_first: "/" | split: "/" %}
+
+    {% assign count = url_parts | size %}
+    {% assign top_level_item = "" | split: "" %}
+
+    {% if count > level %}
+      {% assign parent_url = "/" %}
+      {% for part in url_parts %}
+        {% if forloop.index <= level %}
+          {% assign parent_url = parent_url | append: part | append: "/" %}
+        {% endif %}
+      {% endfor %}
+
+      {% unless parents_urls contains parent_url %}
+        {% assign parents_urls = parents_urls | push: parent_url %}
+      {% endunless %}
+
+      {% unless top_level_urls contains parent_url %}
+        {% assign top_level_urls = top_level_urls | push: parent_url%}
+
+        {% assign top_level_item = top_level_item | push: parent_url %}
+
+        {% assign top_level = top_level | push: top_level_item %}
+      {% endunless %}
+
+      {% assign children = children | push: current_page %}
+    {% else %}
+      {% unless top_level_urls contains parent_url %}
+        {% assign top_level_urls = top_level_urls | push: current_page.url %}
+
+        {% assign top_level_item = top_level_item | push: current_page.url %}
+        {% assign top_level_item = top_level_item | push: current_page %}
+
+        {% assign top_level = top_level | push: top_level_item %}
+        {% endunless %}
+      {% endif %}
+  {% endfor %}
+
+  {% assign top_level_sorted = "" | split: "" %}
+  {% for item in top_level %}
+    {% assign url = item[0] %}
+    {% assign node = item[1] %}
+
+    {% assign title = node.title | default: nil %}
+
+    {% if title == nil %}
+      {% assign title = node.url | default: url | remove_first: "/" | replace: "/", " " %}
+    {% endif %}
+
+    {% assign title = title | trim %}
+
+    {% assign name = title | append: delimiter | append: url %}
+    {% assign top_level_sorted = top_level_sorted | push: name %}
+  {% endfor %}
+
+  {% assign top_level_sorted = top_level_sorted | sort_natural %}
+
+  {% assign top_level = "" | split: "" %}
+  {% for item in top_level_sorted %}
+    {% assign parts = item | split: delimiter %}
+
+    {% assign title = parts[0] %}
+    {% assign url = parts[1] %}
+
+    {% assign node = pages | where: "url", url | first %}
+    {% unless node %}
+      {% assign node = url %}
+    {% endunless %}
+
+    {% assign top_level = top_level | push: node %}
+
+  {% endfor %}
+{%- endcapture -%}{%- assign buffer = nil -%}

@@ -1,0 +1,39 @@
+{%comment%}
+
+@TODO: Define all parameters as required includes
+
+@param page
+@param site_page
+@param site_page_url
+
+@return has_children
+@return is_active
+@return site_page_title
+@return site_page_url
+
+{%endcomment%}
+
+{% assign site_page_url = site_page.url %}
+{% if site_page_url == nil %}
+  {% assign site_page_url = site_page %}
+{% endif %}
+
+{% assign site_page_url_base = site_page_url | remove_first: "/" | split: "/" | first %}
+{% assign page_url_base = page.url | remove_first: "/" | split: "/" | first %}
+
+<!-- @FIXME: The logic for "is_active" is incorrect! -->
+{% assign is_active = false %}
+{% if site_page_url_base == page_url_base %}
+  {% assign is_active = true %}
+{% endif %}
+
+{% assign site_page_title = site_page.title %}
+{% if site_page_title == nil %}
+  {% assign site_page_title = site_page_url | remove_first: "/" | replace: "/", " " %}
+{% endif %}
+{% assign site_page_title = site_page_title | trim %}
+
+{% assign has_children = false %}
+{% if parents_urls contains site_page_url %}
+  {% assign has_children = true %}
+{% endif %}
