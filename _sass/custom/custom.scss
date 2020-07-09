@@ -1,0 +1,12 @@
+.site-footer {display: none;}
+
+.nav-list-link {cursor: default;}
+.nav-list-link[href] {cursor: pointer;}
+
+.nav-list .nav-list-item .nav-list-repo {
+  height: 2rem;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0;
+  width: 2rem;
+}
