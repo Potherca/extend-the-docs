@@ -1,0 +1,15 @@
+{%comment%}
+
+@TODO: Define all parameters as required includes
+
+@param repository
+
+@return repository_url
+
+{%endcomment%}
+
+{% if repository.homepage and site.nav.cross_repository.show_homepage %}
+  {% assign repository_url = repository.homepage %}
+{% else %}
+  {% assign repository_url = site.url | append: "/" | append: repository.name | append: "/" %}
+{% endif %}

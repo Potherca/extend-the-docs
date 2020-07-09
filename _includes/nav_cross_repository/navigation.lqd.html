@@ -1,0 +1,29 @@
+<ul class="nav-list">
+{%- for repository in site.github.public_repositories -%}
+
+  {%- include nav_cross_repository/show_repo.lqd -%}
+
+  {%- if show_repo -%}
+    {%- include nav_cross_repository/repository_url.lqd -%}
+    {%- include nav_cross_repository/repository_is_active.lqd -%}
+
+    <li class="nav-list-item{% if is_active %} active{% endif %}">
+      {%- unless is_active -%}
+        <a href="{{ repository_url }}" class="nav-list-repo"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+      {%- else -%}
+        <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+      {%- endunless -%}
+
+      <a
+        class="nav-list-link{% if is_active %} active{% endif %}"
+        href="{{ repository_url }}"
+        title="{{ repository.description }}"
+      >{{ repository.name | relpace: "-", " "}}</a>
+
+      {%- if is_active -%}
+        {{ include.menu }}
+      {%- endif -%}
+    </li>
+  {%- endif -%}
+{%- endfor -%}
+</ul>

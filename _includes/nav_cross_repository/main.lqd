@@ -1,0 +1,29 @@
+{%- comment -%}
+ %
+ % Returns a menu build up out of the current organisation repositories.
+ % A menu MUST be given to be displayed for the current repository.
+ %
+ % If existing menu logic is to be used that does not return a variable, it can
+ % be captured using the `capture` tag.
+ %
+ % ## Usage examples
+ %
+ % Simple usage:
+ %
+ %      {% include nav_cross_repository/main.lqd menu=menu %}
+ %
+ % Capturing an existing  menu:
+ %
+ %      {%- capture buffer %}
+ %        <!-- Menu HTML is built here -->
+ %      {%- endcapture -%}
+ %      {% include nav_cross_repository/main.lqd menu=buffer %}
+ %
+{%- endcomment -%}
+{%- capture buffer -%}
+  {% assign this_url = site.url | append: site.baseurl | append: "/" %}
+
+  {% assign menu = include.menu | default: "ERROR: No menu has ben set!" %}
+
+  {% include nav_cross_repository/navigation.lqd.html menu=menu %}
+{%- endcapture -%}{{ buffer }}
