@@ -16,7 +16,6 @@
 
     <a {% if site_page.url %}href="{{ site_page.url | absolute_url }}"{% endif %} class="nav-list-link{% if is_active %} active{% endif %}">
       {{ site_page_title }}
-      <b>{{is_active|inspect}}</b>
     </a>
 
     {% if has_children %}
