@@ -1,3 +1,7 @@
+{%- capture buffer -%}
+  {%- if site.nav.recurse -%}
+    {%- include nav_recurse/main.lqd -%}
+  {%- else -%}
 <ul class="nav-list">
   {%- assign ordered_pages_list = site.html_pages | where_exp:"item", "item.nav_order != nil" -%}
   {%- assign unordered_pages_list = site.html_pages | where_exp:"item", "item.nav_order == nil" -%}
@@ -10,7 +14,7 @@
   {%- endif -%}
   {%- assign pages_list = sorted_ordered_pages_list | concat: sorted_unordered_pages_list -%}
   {%- for node in pages_list -%}
-    {%- unless node.nav_exclude -%}
+    {%- unless node.nav_exclude or site.nav.exclude contains node.url -%}
       {%- if node.parent == nil and node.title -%}
         <li class="nav-list-item{% if page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
           {%- if page.parent == node.title or page.grand_parent == node.title -%}
@@ -53,3 +57,11 @@
     {%- endunless -%}
   {%- endfor -%}
 </ul>
+  {% endif -%}
+{%- endcapture -%}
+
+{%- if site.nav.cross_repository -%}
+  {%- include nav_cross_repository/main.lqd menu=buffer -%}
+{%- else -%}
+  {{ buffer }}
+{%- endif -%}

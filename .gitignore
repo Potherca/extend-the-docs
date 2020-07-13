@@ -1,8 +1,6 @@
-*.gem
-.bundle
-.ruby-version
-.jekyll-cache
-.sass-cache
-_site
+# Folders to ignore
+_site/
+.jekyll-cache/
+
+# Files to ignore
 Gemfile.lock
-node_modules

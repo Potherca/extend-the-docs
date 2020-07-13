@@ -1,68 +1,87 @@
-<p align="right">
-    <a href="https://badge.fury.io/rb/just-the-docs"><img src="https://badge.fury.io/rb/just-the-docs.svg" alt="Gem version"></a> <a href="https://github.com/pmarsceill/just-the-docs/actions?query=workflow%3A%22Master+branch+CI%22"><img src="https://github.com/pmarsceill/just-the-docs/workflows/Master%20branch%20CI/badge.svg" alt="Build status"></a>
-</p>
-<br><br>
-<p align="center">
-    <h1 align="center">Just the Docs</h1>
-    <p align="center">A modern, highly customizable, and responsive Jekyll theme for documentation with built-in search.<br>Easily hosted on GitHub Pages with few dependencies.</p>
-    <p align="center"><strong><a href="https://pmarsceill.github.io/just-the-docs/">See it in action!</a></strong></p>
-    <br><br><br>
-</p>
+# Just Build the Docs
 
-![jtd](https://user-images.githubusercontent.com/896475/47384541-89053c80-d6d5-11e8-98dc-dba16e192de9.gif)
+<!-- @TODO: Banner  -->
 
-## Installation
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-green.svg)](https://github.com/RichardLitt/standard-readme)
 
-Add this line to your Jekyll site's Gemfile:
+_Features that extend the excellent "Just the docs" Jekyll theme_
 
-```ruby
-gem "just-the-docs"
+<!-- @TODO: Add Table of Contents when README becomes longer than 100 lines -->
+
+Currently this project has implemented two features:
+
+1. Exclude from `_config.yml_
+2. Recursive menu
+3. Cross-repository menu
+
+These features have been built for and are used with Github Pages.
+
+Other Jekyll use-cases have not been tested and may contain bugs or not work at
+all.
+
+## Install
+
+The recommended way to install this project is by installing it as a remote
+theme. In your project's `_config.yml` add:
+
+```yml
+remote_theme: Potherca/just-build-the-docs@theme
 ```
-
-And add this line to your Jekyll site's `_config.yml`:
-
-```yaml
-theme: just-the-docs
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install just-the-docs
 
 ## Usage
 
-[View the documentation](https://pmarsceill.github.io/just-the-docs/) for usage information.
+After it has been installed and configured, the theme should "just work".
+
+To use a feature, it must be enabled in the `_config.yml` file under the `nav`
+section.
+
+### Exclude from `_config.yml_
+
+```yml
+nav:
+  exclude:
+    # The URL of any page that should not be displayed in the navigation menu
+    - "/"
+```
+### Recursive menu
+
+```yml
+nav:
+  recurse: true
+```
+
+### Cross-repository menu
+
+```yml
+nav:
+  cross_repository:
+    # Set to true to also include repositories that have been archived
+    show_archived: false
+    #set to true to use the homepage (from the repository settings) instead of https://site.url/repository-name
+    show_homepage: false
+```
+
+## Example of all features combined
+
+```yml
+nav:
+  exclude:
+    - "/"
+  recurse: true
+  cross_repository:
+    show_archived: false
+    show_homepage: true
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/pmarsceill/just-the-docs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Questions or feedback can be given by [opening an issue](https://github.com/Potherca/renovate-config/issues).
 
-### Submitting code changes:
-
-- Open a [Pull Request](https://github.com/pmarsceill/just-the-docs/pulls)
-- Ensure all CI tests pass
-- Await code review
-- Bump the version number in `just-the-docs.gemspec` and `package.json` according to [semantic versioning](https://semver.org/).
-
-### Design and development principles of this theme:
-
-1. As few dependencies as possible
-2. No build script needed
-3. First class mobile experience
-4. Make the content shine
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is set up just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When the theme is released, only the files in `_layouts`, `_includes`, and `_sass` tracked with Git will be released.
+<!--
+@TODO: Link to a CONTRIBUTING file
+@TODO: Link to a Code of Conduct
+-->
 
 ## License
 
-The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+This project has been published by [Potherca](https://pother.ca) under a [Mozilla Public License 2.0 (MPL-2.0)](./LICENSE).

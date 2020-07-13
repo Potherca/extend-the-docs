@@ -1,0 +1,15 @@
+{% assign children_backup = children_backup | default: children %}
+{% assign level_backup = level_backup | default: level %}
+{% assign top_level_backup = top_level_backup | default: top_level %}
+{% assign parents_urls_backup = parents_urls_backup | default: parents_urls %}
+
+{% assign pages = include.pages %}
+{% assign level = include.level | default: 1 %}
+
+{% include nav_recurse/page_list.lqd pages=pages level=level %}
+{% include nav_recurse/navigation.lqd.html children=children level=level pages=top_level parents_urls=parents_urls %}
+
+{% assign children = children_backup %}
+{% assign level = level_backup %}
+{% assign top_level = top_level_backup %}
+{% assign parents_urls = parents_urls_backup %}

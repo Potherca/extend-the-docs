@@ -1,0 +1,13 @@
+{% if repository.private %}
+  {% assign show_repo = false %}
+{% elsif repository.archived and site.nav.cross_repository.show_archived != true %}
+  {% assign show_repo = false %}
+{% else %}
+  {% if repository.has_pages %}
+    {% assign show_repo = true %}
+  {% elsif repository.homepage != empty and site.nav.cross_repository.show_homepage%}
+    {% assign show_repo = true %}
+  {% else %}
+    {% assign show_repo = false %}
+  {% endif %}
+{% endif %}

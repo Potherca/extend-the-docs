@@ -1,0 +1,15 @@
+{%comment%}
+
+@TODO: Define all parameters as required includes
+
+@param repository_url
+@param this_url
+
+@return is_active
+
+{%endcomment%}
+{% assign is_active = false %}
+{% if repository_url == this_url %}
+  {% assign is_active = true %}
+{% endif %}
+
