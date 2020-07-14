@@ -1,6 +1,13 @@
 {%- capture buffer -%}
   {%- if site.nav.recurse -%}
-    {%- include nav_recurse/main.lqd -%}
+
+    {% assign pages = site.html_pages %}
+
+    {% if site.nav.include_posts %}
+      {% assign pages = pages | concat: site.posts %}
+    {% endif %}
+
+    {%- include nav_recurse/main.lqd pages=pages -%}
   {%- else -%}
 <ul class="nav-list">
   {%- assign ordered_pages_list = site.html_pages | where_exp:"item", "item.nav_order != nil" -%}
