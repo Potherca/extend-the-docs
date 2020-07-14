@@ -1,5 +1,29 @@
 # Development notes and general ideas
 
+## Changes to original files
+
+Instead of overwriting files in `_layouts` and `_includes` it might be neater to
+use something simliar to `_layouts/table_wrappers.html` to replace specific HTML
+with the replacement:
+
+```
+---
+layout: vendor/compress
+---
+
+{% assign content_ = content | replace: '<table', '<div class="table-wrapper"><table' %}
+{% assign content_ = content_ | replace: '</table>', '</table></div>' %}
+{{ content_ }}
+```
+There's more possible with this than one would think at first. Care needs to be
+taken when/where things are replaced as there is the risk of a performance
+penalty running logic in the originals for nothing.
+
+The major benefit being:
+
+- Leaving the commit history of the original intact
+- Easier to integrate upstream changes
+
 ## Cross-repository
 
 It might be a good idea to also check for `fork` and/or add a setting to _not_
