@@ -23,7 +23,7 @@
 {%- capture buffer -%}
   {% assign this_url = site.url | append: site.baseurl | append: "/" %}
 
-  {% assign menu = include.menu | default: "ERROR: No menu has ben set!" %}
+  {% assign menu = include.menu | default: "ERROR: No menu has been set!" %}
 
   {% include nav_cross_repository/navigation.lqd.html menu=menu %}
 {%- endcapture -%}{{ buffer }}
