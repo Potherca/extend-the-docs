@@ -13,11 +13,19 @@ plugins:
 # Extend the Docs (Fork) settings
 nav:
   cross_repository:
+    exclude:
+      - potherca.github.io
     show_homepage: false # use the homepage (from the repository settings) instead of https://site.url/repository-name
     show_archived: false  # Whether to include repositories that have been archived (true) or not (false)
   exclude:
     - "/"
     - "/notes/"
+  favicon_ico : /favicon.ico
+  include_posts:
+    sort_by_date: true
+  main_title:
+    link: '/'
+    text: Potherca
   recurse: true
 
 # Just the Docs (Source) settings
