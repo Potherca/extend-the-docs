@@ -10,7 +10,11 @@
     {% endif %}
   {% endunless %}
 
-  <link rel="shortcut icon" href="{{ 'favicon.ico' | absolute_url }}" type="image/x-icon">
+  {%- assign favicon_link = site.nav.favicon_ico -%}
+  {%- if favicon_link == nil -%}
+    {%- assign favicon_link = 'favicon.ico' | absolute_url -%}
+  {%- endif -%}
+  <link rel="icon" href="{{ favicon_link }}" type="image/x-icon">
 
   <link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | absolute_url }}">
 

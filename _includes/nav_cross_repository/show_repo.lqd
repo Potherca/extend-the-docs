@@ -1,4 +1,7 @@
-{% if repository.private %}
+
+{% if site.nav.cross_repository.exclude contains repository.name %}
+  {% assign show_repo = false %}
+{% elsif repository.private %}
   {% assign show_repo = false %}
 {% elsif repository.archived and site.nav.cross_repository.show_archived != true %}
   {% assign show_repo = false %}
