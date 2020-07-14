@@ -62,6 +62,10 @@
 
     {% assign title = title | trim %}
 
+    {% if node.date and site.nav.include_posts.sort_by_date %}
+      {% assign title = title | prepend: node.date %}
+    {% endif %}
+
     {% assign name = title | append: delimiter | append: url %}
     {% assign top_level_sorted = top_level_sorted | push: name %}
   {% endfor %}
