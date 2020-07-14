@@ -1,0 +1,10 @@
+{%- assign edit_branch = site.gh_edit_branch | default: site.github.default_branch | default: 'master' -%}
+{%- assign edit_link_text = site.gh_edit_link_text | default: 'View this page on Github' -%}
+{%- assign edit_repository = site.gh_edit_repository | default: site.github.repository_url | append: '' -%}
+{%- assign edit_view_mode = site.gh_edit_view_mode | default: 'tree' -%}
+
+{%- if site.nav.footer and edit_repository != '' -%}
+  <p class="text-small text-grey-dk-000 mb-0">
+    <a href="{{ edit_repository }}/{{ edit_view_mode }}/{{ edit_branch }}/{{ page.path }}" id="edit-this-page">{{ edit_link_text }}</a>
+  </p>
+{%- endif -%}
