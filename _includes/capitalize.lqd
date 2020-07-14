@@ -1,0 +1,38 @@
+{%- comment -%}
+
+  Capitalized given words
+
+  Optionally a delimiter can be used to use another character than a space ' '
+  to split the words by.
+
+  Liquid's "capitalize" filter does not only upper-case the first character of
+  each word, it _also_ lower-cases all other letters. This version does not touch
+  anything other than the first character.
+
+  Usage example:
+
+      {% include capitalize.lqd words='These-ARE-some-wordS' delimiter='-' %}
+
+  This will output "These-ARE-Some-WordS"
+
+  @param delimiter
+  @param words
+
+  @print capitalized_words
+
+{%- endcomment -%}
+{%- capture buffer -%}
+  {% assign capitalized_words = '' | split: '' %}
+
+  {% assign delimiter = include.delimiter | default: ' ' %}
+  {% assign words = include.words | split: delimiter %}
+
+  {% for word in words %}
+    {% assign letters = word | split: '' %}
+    {% assign first_letter = letters | first | capitalize %}
+    {% assign capitalized_word = letters | join: '' | slice: 1, letters.size | prepend: first_letter %}
+    {% assign capitalized_words = capitalized_words | push: capitalized_word %}
+  {% endfor %}
+
+  {% assign capitalized_words = capitalized_words | join: delimiter %}
+{%- endcapture -%}{{ capitalized_words }}{%- assign buffer = nil -%}
