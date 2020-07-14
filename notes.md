@@ -1,5 +1,10 @@
 # Development notes and general ideas
 
+## Cross-repository
+
+It might be a good idea to also check for `fork` and/or add a setting to _not_
+show pages for forks. Or add an `exclude` setting for repos as well?
+
 ## Recurse
 
 Although the implementation uses recursion, this feature should have a different
