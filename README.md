@@ -11,12 +11,16 @@ _Features that extend the excellent "Just the docs" Jekyll theme_
 - [Install](#install)
 - [Usage](#usage)
   - [Cross-repository menu](#cross-repository-menu)
+    - [Always use links from homepage setting](#always-use-links-from-homepage-setting)
+    - [Excluding repositories](#excluding-repositories)
+    - [Hiding archived repositories](#hiding-archived-repositories)
+    - [Example of all cross-repostory settings](#example-of-all-cross-repostory-settings)
   - [Custom favicon path](#custom-favicon-path)
   - [Exclude from `_config.yml`](#exclude-from-_configyml)
   - [Include posts in the menu](#include-posts-in-the-menu)
   - [Main title customization](#main-title-customization)
   - [Recursive menu](#recursive-menu)
-- [Example of all features combined](#example-of-all-features-combined)
+- [Example of all settings](#example-of-all-settings)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -31,7 +35,7 @@ Currently this project has implemented these features:
 5. Main title customization
 6. Recursive menu
 
-These features have been built for and are used with Github Pages.
+These features have been built for and are used with GitHub Pages.
 
 Other Jekyll use-cases have not been tested and may contain bugs or not work at
 all.
@@ -55,7 +59,51 @@ section.
 ### Cross-repository menu
 
 To have the top-level of the navigation menu be all repositories of a user (or
-organisation) `nav.cross_repository` can be set in the `_config.yml` using:
+organisation) the `nav.cross_repository` value can be set in the `_config.yml`:
+
+```yml
+nav:
+  cross_repository: true
+```
+
+All links point to the GitHub Pages URL of each repository or, if no GitHub
+Pages are available, to the homepage set for the repository. If neither is
+available, no link is shown.
+
+#### Always use links from homepage setting
+
+To always use the repository homepage, set `nav.cross_repository.show_homepage`
+to `true`.
+
+```yml
+nav:
+  cross_repository:
+    show_homepage: true
+```
+
+#### Excluding repositories
+
+Any repositories that should be excluded can be set in `nav.cross_repository.exclude`.
+
+```yml
+nav:
+  cross_repository:
+    exclude:
+      - example.github.io
+```
+
+#### Hiding archived repositories
+
+By default, archived repositories are also shown in the navigation menu. They
+can be hidden by setting `nav.cross_repository.show_archived` to `false`.
+
+```yml
+nav:
+  cross_repository:
+    show_archived: false
+```
+
+#### Example of all cross-repostory settings
 
 ```yml
 nav:
@@ -65,8 +113,8 @@ nav:
       - potherca.github.io
     # Set to true to also include repositories that have been archived
     show_archived: false
-    #set to true to use the homepage (from the repository settings) instead of https://site.url/repository-name
-    show_homepage: false
+    # Set to true to use the homepage (from the repository settings) instead of https://site.url/repository-name
+    show_homepage: true
 ```
 
 ### Custom favicon path
@@ -75,7 +123,7 @@ A custom path to the favicon can be set in the `_config.yml` using:
 
 ```yml
 nav:
-  favicon_ico : /favicon.ico
+  favicon_ico: /favicon.ico
 ```
 
 Please note that this path is used as-is (i.e. it is _not_ a relative path
@@ -92,7 +140,6 @@ nav:
     # The URL of any page that should not be displayed in the navigation menu
     - "/404.html"
 ```
-
 
 ### Include posts in the menu
 
@@ -143,18 +190,18 @@ nav:
   recurse: true
 ```
 
-## Example of all features
+## Example of all settings
 
 ```yml
 nav:
   cross_repository:
     exclude:
-      - potherca.github.io
+      - example.github.io
     show_archived: false
     show_homepage: true
   exclude:
     - "/404.html"
-  favicon_ico : /favicon.ico
+  favicon_ico: /favicon.ico
   include_posts:
     sort_by_date: true
   main_title:

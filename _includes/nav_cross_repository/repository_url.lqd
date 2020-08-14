@@ -7,8 +7,8 @@
 @return repository_url
 
 {%endcomment%}
-
-{% if repository.homepage and site.nav.cross_repository.show_homepage %}
+{% assign repository_homepage = repository.homepage | append: '' %}
+{% if repository_homepage != '' and site.nav.cross_repository.show_homepage %}
   {% assign repository_url = repository.homepage %}
 {% else %}
   {% assign repository_url = site.url | append: "/" | append: repository.name | append: "/" %}

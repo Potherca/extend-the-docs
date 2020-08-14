@@ -6,6 +6,9 @@
  % If existing menu logic is to be used that does not return a variable, it can
  % be captured using the `capture` tag.
  %
+ % If the current repository is configured to be excluded, the pages of the repo
+ % are shown at the top of the menu.
+ %
  % ## Usage examples
  %
  % Simple usage:
@@ -20,6 +23,10 @@
  %      {% include nav_cross_repository/main.lqd menu=buffer %}
  %
 {%- endcomment -%}
+{%- assign current_repo_name = site.repository | split: "/" | last -%}
+{%- if site.nav.cross_repository.exclude contains current_repo_name -%}
+    {{ include.menu }}
+{%- endif -%}
 {%- capture buffer -%}
   {% assign this_url = site.url | append: site.baseurl | append: "/" %}
 

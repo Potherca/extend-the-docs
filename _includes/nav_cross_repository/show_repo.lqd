@@ -1,14 +1,14 @@
-
 {% if site.nav.cross_repository.exclude contains repository.name %}
   {% assign show_repo = false %}
 {% elsif repository.private %}
   {% assign show_repo = false %}
-{% elsif repository.archived and site.nav.cross_repository.show_archived != true %}
+{% elsif repository.archived and site.nav.cross_repository.show_archived == false %}
   {% assign show_repo = false %}
 {% else %}
+  {% assign repository_homepage = repository.homepage | append: '' %}
   {% if repository.has_pages %}
     {% assign show_repo = true %}
-  {% elsif repository.homepage != empty and site.nav.cross_repository.show_homepage%}
+  {% elsif repository_homepage != '' and site.nav.cross_repository.show_homepage %}
     {% assign show_repo = true %}
   {% else %}
     {% assign show_repo = false %}
